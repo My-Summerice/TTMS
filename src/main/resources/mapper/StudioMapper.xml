@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xinill.ttms.mapper.IStudioMapper">   <!--namespace必须为接口的全类名-->
+
+    <insert id="insert">
+        INSERT INTO
+        TTMS.studio(studio_name, studio_row_count, studio_col_count)
+        VALUES(#{name}, #{row}, #{col});
+    </insert>
+
+    <select id="findIdByName" parameterType="string" resultType="_int">
+        SELECT studio_id
+        FROM TTMS.studio
+        WHERE studio_name = #{name};
+    </select>
+
+    <delete id="deleteByStudioId" parameterType="_int">
+        DELETE FROM TTMS.studio
+        WHERE studio_id = #{studioId};
+    </delete>
+
+    <select id="findAllStudio" resultMap="studio">
+        SELECT *
+        FROM TTMS.studio;
+    </select>
+
+    <update id="modifyStudio">
+        UPDATE TTMS.studio
+        SET studio_name = #{name},
+            studio_row_count = #{row},
+            studio_col_count = #{col},
+            studio_status = #{status}
+        WHERE studio_id = #{id};
+    </update>
+
+    <resultMap id="studio" type="cn.xinill.ttms.pojo.Studio">
+        <id property="id" column="studio_id"/>
+        <result property="name" column="studio_name"/>
+        <result property="row" column="studio_row_count"/>
+        <result property="col" column="studio_col_count"/>
+        <result property="status" column="studio_status"/>
+    </resultMap>
+
+</mapper>

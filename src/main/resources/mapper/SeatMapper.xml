@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xinill.ttms.mapper.ISeatMapper">   <!--namespace必须为接口的全类名-->
+
+    <insert id="insert">
+        INSERT INTO
+        TTMS.seat(studio_id, seat_row, seat_col, seat_status)
+        VALUES(#{studioId}, #{row}, #{col}, #{status})
+    </insert>
+
+    <delete id="deleteByStudioId" parameterType="_int">
+        DELETE FROM TTMS.seat
+        WHERE studio_id = #{studioId}
+    </delete>
+
+    <select id="findSeatListByStudioId" parameterType="_int" resultMap="seat">
+        SELECT *
+        FROM TTMS.seat
+        WHERE studio_id = #{studioId}
+    </select>
+
+
+    <resultMap id="seat" type="cn.xinill.ttms.pojo.Seat">
+        <id property="seatId" column="seat_id"/>
+        <result property="studioId" column="studio_id"/>
+        <result property="row" column="seat_row"/>
+        <result property="col" column="seat_col"/>
+        <result property="status" column="seat_status"/>
+    </resultMap>
+</mapper>

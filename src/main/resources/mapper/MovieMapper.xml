@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xinill.ttms.mapper.IMovieMapper">   <!--namespace必须为接口的全类名-->
+
+
+    <select id="countMovie" resultType="_int">
+        SELECT count(*)
+        FROM TTMS.movie
+    </select>
+
+    <insert id="insertMovie" parameterType="movie">
+        INSERT
+        INTO TTMS.movie(title, actor, type, area, language, releaseDate, filmlen, introduction, rate, cover)
+        VALUES(#{title}, #{actor}, #{type}, #{area}, #{language}, #{releaseDate}, #{filmlen}, #{introduction}, #{rate}, #{cover})
+    </insert>
+
+    <select id="getMovieList" resultMap="movie">
+        SELECT *
+        FROM TTMS.movie
+        ORDER BY ${sortType} ${sortRule}
+        LIMIT ${start}, ${len}
+    </select>
+
+    <select id="getMovie" parameterType="_int" resultMap="movie">
+        SELECT *
+        FROM TTMS.movie
+        WHERE mid = #{mid}
+    </select>
+
+    <delete id="deleteMovie" parameterType="_int">
+        DELETE FROM TTMS.movie WHERE mid = #{mid}
+    </delete>
+
+
+    <resultMap id="movie" type="cn.xinill.ttms.pojo.Movie">
+        <id property="mid" column="mid"/>
+        <result property="title" column="title"/>
+        <result property="actor" column="actor"/>
+        <result property="type" column="type"/>
+        <result property="area" column="area"/>
+        <result property="language" column="language"/>
+        <result property="releaseDate" column="releaseDate"/>
+        <result property="filmlen" column="filmlen"/>
+        <result property="introduction" column="introduction"/>
+        <result property="rate" column="rate"/>
+        <result property="cover" column="cover"/>
+    </resultMap>
+</mapper>

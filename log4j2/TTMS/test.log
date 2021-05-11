@@ -1,0 +1,10 @@
+15:09:28.719 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.7.Final
+15:09:28.777 [main] INFO  cn.xinill.ttms.TtmsApplication - Starting TtmsApplication using Java 1.8.0_144 on LAPTOP-V9MOA8RS with PID 13068 (D:\项目\TTMS\TTMS\target\classes started by HP in D:\项目\TTMS\TTMS)
+15:09:28.781 [main] INFO  cn.xinill.ttms.TtmsApplication - No active profile set, falling back to default profiles: default
+15:09:30.534 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+15:09:30.535 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+15:09:30.535 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+15:09:30.651 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/ttms] - Initializing Spring embedded WebApplicationContext
+15:09:33.206 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+15:09:33.226 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/ttms] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:09:33.244 [main] INFO  cn.xinill.ttms.TtmsApplication - Started TtmsApplication in 5.172 seconds (JVM running for 6.549)

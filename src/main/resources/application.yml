@@ -1,0 +1,93 @@
+server: #服务器配置
+  maxHttpHeaderSize: 8999
+  servlet:
+    encoding:
+      force-response: true
+    context-path: /ttms
+  port: 8080
+spring:
+  mvc:
+    servlet:
+      #设置为0或正数，启动时初始化
+      load-on-startup: 100
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.100.137.85:3306/TTMS?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: A1223176327a
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,log4j
+      use-global-data-source-stat: true
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    tomcat:
+      initial-size: 10
+      max-active: 20
+      max-idle: 8
+      min-idle: 8
+    hikari:
+      max-lifetime: 500000
+  #Redis 数据库配置
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 47.100.137.85
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: A1223176327a
+    # 连接超时时间（毫秒）
+    timeout: 1000
+    # 连接池配置
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 20
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+  jackson:
+    #返回的JSON数据中如果属性为NULL时，不序列化该键值对。(全服务设置，谨慎使用)  或者使用注解@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+    default-property-inclusion: non_null
+
+
+#配置mybatis
+mybatis:
+  #给mapper.xml 中需要使用的实体类起别名，直接扫描包的形式进行操作。
+  type-aliases-package: cn.xinill.ttms.pojo
+  #配置mapper.xml的映射  支持通配符
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    #是否开启全局缓存。 默认为 true。如果配置 false， 优先级高于 xml文件中的<cache/>
+    cache-enabled: true
+
+
+logging:
+  config: log4j2-spring.xml  #默认名：log4j2-spring.xml
+  level:
+    cn.jay.repository: trace

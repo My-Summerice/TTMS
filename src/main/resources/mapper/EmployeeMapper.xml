@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xinill.ttms.mapper.IEmployeeMapper">   <!--namespace必须为接口的全类名-->
+
+    <select id="findEmpByNo" parameterType="string" resultType="_int">
+        SELECT COUNT(emp_no)
+        FROM TTMS.employee
+        WHERE emp_no = #{empNo}
+    </select>
+
+    <insert id="insertEmp" parameterType="employee">
+        INSERT INTO
+        TTMS.employee(emp_no, emp_pwd, emp_role)
+        VALUES (#{username}, #{password}, #{role})
+    </insert>
+
+    <select id="selectByNo" parameterType="string" resultMap="employee">
+        SELECT *
+        FROM TTMS.employee
+        WHERE emp_no = #{username}
+    </select>
+
+    <select id="selectByRole" parameterType="string" resultMap="employee">
+        SELECT *
+        FROM TTMS.employee
+        WHERE emp_role IN ${roles}
+    </select>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM TTMS.employee
+        WHERE emp_id = #{id}
+    </delete>
+
+    <update id="updateRole" parameterType="employee">
+        UPDATE TTMS.employee
+        SET emp_role = #{role},
+            emp_status = #{status}
+        WHERE emp_no = #{username}
+    </update>
+
+<!--    <update id="updatePwd" parameterType="employee">-->
+<!--        UPDATE TTMS.employee-->
+<!--        SET emp_pwd = #{passowrd}-->
+<!--        WHERE emp_no = #{username}-->
+<!--    </update>-->
+
+    <resultMap id="employee" type="cn.xinill.ttms.pojo.Employee">
+        <id property="empId" column="emp_id"/>
+        <result property="username" column="emp_no"/>
+        <result property="password" column="emp_pwd"/>
+        <result property="role" column="emp_role"/>
+        <result property="name" column="emp_name"/>
+        <result property="gender" column="emp_gender"/>
+        <result property="telnum" column="emp_telnum"/>
+        <result property="status" column="emp_status"/>
+    </resultMap>
+</mapper>
